@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; style-src * data: 'unsafe-inline'; img-src * data: blob:; media-src * data: blob:; connect-src * data: blob:; frame-src * data: blob:;">
+  <title>沉浸式学习模式</title>
+  <link rel="stylesheet" href="styles/learn.css">
+</head>
+<body>
+  <div id="bg-layer" aria-hidden="true"><img src="assets/learn-placeholder.svg" alt=""></div>
+
+  <div id="clock">
+    <div id="clock-date"></div>
+    <div id="clock-time"></div>
+    <div id="clock-weekday"></div>
+  </div>
+
+  <div id="bg-controls">
+    <button id="bg-toggle" type="button">背景</button>
+    <button id="settings-toggle" type="button">设置</button>
+    <button id="learn-exit" type="button" title="退出学习模式">退出</button>
+  </div>
+
+  <section id="bg-panel" class="panel hidden" aria-label="背景设置">
+    <h3>背景设置</h3>
+    <div class="bg-mode">
+      <label><input type="radio" name="bg-mode" value="photo" checked> 照片模式</label>
+      <label><input type="radio" name="bg-mode" value="video"> 视频模式</label>
+    </div>
+    <div class="panel-actions">
+      <button id="bg-select" type="button">选择文件</button>
+      <button id="bg-remove" type="button">移除背景</button>
+    </div>
+    <p class="hint">支持本地图片或视频。切换/移除时会释放临时资源。</p>
+  </section>
+
+  <main id="left-panel">
+    <section id="task-panel" class="panel hidden">
+      <h3>任务清单</h3>
+      <div class="task-input">
+        <input type="text" id="task-input" placeholder="添加新任务...">
+        <button id="task-add" type="button">添加</button>
+      </div>
+      <ul id="task-list"></ul>
+    </section>
+
+    <section id="chat-panel" class="panel hidden">
+      <h3>ZCode 对话</h3>
+      <div id="chat-messages"></div>
+      <div class="chat-input">
+        <input type="text" id="chat-input" placeholder="输入消息，回车发送...">
+        <button id="chat-send" type="button">发送</button>
+      </div>
+    </section>
+  </main>
+
+  <section id="pomodoro-panel" class="panel hidden" style="position:fixed;left:72px;top:50%;transform:translateY(-50%);width:330px;">
+    <h3>番茄钟</h3>
+    <div id="pomodoro-display">25:00</div>
+    <div id="pomodoro-status">专注中</div>
+    <div class="pomodoro-controls">
+      <button id="pomodoro-start" type="button">开始</button>
+      <button id="pomodoro-pause" type="button">暂停</button>
+      <button id="pomodoro-reset" type="button">重置</button>
+    </div>
+    <div class="pomodoro-settings">
+      <label>专注时长 <input type="number" id="focus-duration" value="25" min="1" max="120"> 分钟</label>
+      <label>休息时长 <input type="number" id="rest-duration" value="5" min="1" max="60"> 分钟</label>
+    </div>
+    <div id="pomodoro-count">已完成 0 个番茄</div>
+  </section>
+
+  <section id="settings-panel" class="panel hidden" aria-label="API 设置">
+    <h3>API 设置</h3>
+    <label>API 地址 <input type="text" id="api-url" placeholder="https://api.openai.com/v1/chat/completions"></label>
+    <label>API 密钥 <input type="password" id="api-key" placeholder="sk-..."></label>
+    <label>模型 <input type="text" id="model-name" value="gpt-4o-mini"></label>
+    <p class="hint warn">提示：API 密钥会明文保存在本机 localStorage，请勿在公共电脑使用。</p>
+    <div class="panel-actions">
+      <button id="settings-save" type="button">保存</button>
+      <button id="settings-clear-key" type="button">清除密钥</button>
+      <button id="settings-close" type="button">关闭</button>
+    </div>
+  </section>
+
+  <div id="learn-dino" title="点我一下">
+    <svg id="learn-dino-svg" width="200" height="250" viewBox="0 0 220 300"></svg>
+  </div>
+  <div id="bubble" aria-live="polite"></div>
+
+  <nav id="quick-panel" aria-label="快捷面板">
+    <button id="quick-pomodoro" type="button">计时</button>
+    <button id="quick-task" type="button">任务</button>
+    <button id="quick-chat" type="button">对话</button>
+    <button id="quick-bg" type="button">背景</button>
+  </nav>
+
+  <input id="bg-file-input" type="file" accept="image/*,video/*" hidden>
+  <script src="js/learn.js" type="module"></script>
+</body>
+</html>

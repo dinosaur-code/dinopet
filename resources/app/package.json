@@ -1,0 +1,39 @@
+{
+  "name": "dino-desktop-pet",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "恐龙桌宠应用",
+  "author": "dinosaur-code",
+  "build": {
+    "appId": "com.dinosaur.desktop-pet",
+    "productName": "恐龙桌宠",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "assets/**/*",
+      "dino.ico",
+      "about.txt"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "dino.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "恐龙桌宠"
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.1.0",
+    "electron-builder": "^26.15.3"
+  }
+}
